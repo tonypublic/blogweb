@@ -37,24 +37,23 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-
 export default {
   name: 'SbMember',
   data() {
     return {
       logined: true,
-      menuFlag: false
+      menuFlag: false,
+      userInfo: {}
     }
   },
   created: function() {
-    this.getUserInfo()
+    // this.getUserInfo()
   },
-  computed: mapState({
-    userInfo: state => state.user.userInfo
-  }),
+  // computed: mapState({
+  //   userInfo: state => state.user.userInfo
+  // }),
   methods: {
-    ...mapActions(['getUserInfo']),
+    // ...mapActions(['getUserInfo']),
     viewMenu: function() {
       this.menuFlag = this.menuFlag ? false : true
     },

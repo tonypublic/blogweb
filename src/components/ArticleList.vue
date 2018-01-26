@@ -22,44 +22,42 @@
         </div>
       </b-col>
     </b-row>
-    <b-pagination :total-rows="totle" v-model="currentPage" :per-page="perPage" @input="changePage"></b-pagination>
+    <b-pagination :total-rows="total" v-model="currentPage" :per-page="perPage" @input="changePage"></b-pagination>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-
+import subject from '../api/subject'
 export default {
   name: 'ArticleList',
   data() {
     return {
+      total: 0,
       currentPage: 1,
       perPage: 10
     }
   },
   created: function() {
-    this.getArticleList({
-      start: this.currentPage - 1,
-      amounts: this.perPage
-    })
+    this.getArticleList()
     this.$Progress.start()
   },
   mounted() {
     this.$Progress.finish()
   },
   computed: {
-    ...mapState({
-      totle: state => state.article.totle,
-      items: state => state.article.articleList
-    })
   },
   methods: {
-    ...mapActions(['getArticleList']),
-    changePage: function() {
-      this.getArticleList({
+    getArticleList: function() {
+      var ap = new Object()
+      ap = subject.getArticleList({
         start: (this.currentPage - 1) * this.perPage,
         amounts: this.perPage
-      })
+      }),
+      this.total = ap.total
+      this.items = ap.articlelist
+    },
+    changePage: function() {
+      this.getArticleList()
     },
     gotoSubject: function(id) {
       this.$router.push('/p/'.concat(id))

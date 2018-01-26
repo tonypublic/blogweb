@@ -26,6 +26,7 @@ export default {
   name: 'SiderBar',
   data() {
     return {
+      loginFlag: false,
       items: []
     }
   },
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
     initItems: function() {
-      if (this.$store.state.user.loginFlag) {
+      if (this.loginFlag) {
         this.items = [{ title: '会员', module: SbMember }]
       } else {
         this.items = [{ title: '关于', module: SbAbout }]
