@@ -7,7 +7,7 @@
       </b-col>
       <b-col md="8" sm="12">
         <div>
-          <div class="entry-title" @click="gotoSubject(item.id)">{{item.title}}</div>
+          <div class="entry-title" @click="gotoSubject(item.id,item.type)">{{item.title}}</div>
           <label class="item-label" v-if="item.istop">TOP</label>
         </div>
         <div class="entry-post">{{item.postdate}}</div>
@@ -28,39 +28,45 @@
 
 <script>
 import subject from '../api/subject'
+
 export default {
   name: 'ArticleList',
   data() {
     return {
-      total: 0,
+      total: 0, //文章总数
+      items: [],  //文章列表数组
       currentPage: 1,
       perPage: 10
     }
   },
   created: function() {
     this.getArticleList()
-    this.$Progress.start()
-  },
-  mounted() {
-    this.$Progress.finish()
-  },
-  computed: {
   },
   methods: {
-    getArticleList: function() {
-      var ap = new Object()
-      ap = subject.getArticleList({
-        start: (this.currentPage - 1) * this.perPage,
-        amounts: this.perPage
-      }),
-      this.total = ap.total
-      this.items = ap.articlelist
-    },
+    //翻页事件
     changePage: function() {
       this.getArticleList()
     },
-    gotoSubject: function(id) {
-      this.$router.push('/p/'.concat(id))
+    //文章详情跳转
+    gotoSubject: function(id, type) {
+      if (type == 'p') {
+        this.$router.push('/p/'.concat(id))
+      } else if (type == 'v') {
+        this.$router.push('/v/'.concat(id))
+      }
+    },
+    //获取文章列表
+    getArticleList: function() {
+      this.$Progress.start()
+      var ap = new Object()
+      ap = subject.getArticleList({
+        start: (this.currentPage - 1) * this.perPage,
+        amounts: this.perPage,
+        sort: 'date'  //按日期排序
+      }),
+      this.total = ap.total
+      this.items = ap.articlelist
+      this.$Progress.finish()
     }
   }
 }

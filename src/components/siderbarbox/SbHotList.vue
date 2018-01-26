@@ -3,7 +3,7 @@
     <div class="list-item" v-for="item in items" :key="item.id">
       <b-media>
         <b-img class="list-img" slot="aside" :src="item.imglink" alt="placeholder" />
-        <p class="item-title">{{item.title}}</p>
+        <p class="item-title" @click="gotoSubject(item.id,item.type)">{{item.title}}</p>
         <p>
           <span class="item-date">{{item.postdate}}</span>
           <span class="stats-info">{{item.views}}次观看</span>
@@ -14,57 +14,38 @@
 </template>
 
 <script>
+import subject from '../../api/subject'
+
 export default {
   name: 'SbHotList',
   data() {
     return {
-      items: [
-        {
-          type: 'v',
-          imglink:
-            'http://demo.fabthemes.com/obiron/files/2015/08/sniper-2-ghost-warrior-game_1920x1080_311-hd-80x80.jpg',
-          title: '这是第一个测试项目这是第一个测试项目',
-          postdate: '2018/1/4',
-          views: '10万',
-          comments: '1000'
-        },
-        {
-          type: 'v',
-          imglink:
-            'http://demo.fabthemes.com/obiron/files/2015/08/sniper-2-ghost-warrior-game_1920x1080_311-hd-80x80.jpg',
-          title: '这是第一个测试项目这是第一个测试项目',
-          postdate: '2018/1/4',
-          views: '10万',
-          comments: '1000'
-        },
-        {
-          type: 'v',
-          imglink:
-            'http://demo.fabthemes.com/obiron/files/2015/08/sniper-2-ghost-warrior-game_1920x1080_311-hd-80x80.jpg',
-          title: '这是第一个测试项目这是第一个测试项目',
-          postdate: '2018/1/4',
-          views: '10万',
-          comments: '1000'
-        },
-        {
-          type: 'v',
-          imglink:
-            'http://demo.fabthemes.com/obiron/files/2015/08/sniper-2-ghost-warrior-game_1920x1080_311-hd-80x80.jpg',
-          title: '这是第一个测试项目这是第一个测试项目',
-          postdate: '2018/1/4',
-          views: '10万',
-          comments: '1000'
-        },
-        {
-          type: 'v',
-          imglink:
-            'http://demo.fabthemes.com/obiron/files/2015/08/sniper-2-ghost-warrior-game_1920x1080_311-hd-80x80.jpg',
-          title: '这是第一个测试项目这是第一个测试项目',
-          postdate: '2018/1/4',
-          views: '10万',
-          comments: '1000'
-        }
-      ]
+      items: []
+    }
+  },
+  created: function() {
+    this.getArticleList()
+  },
+  methods: {
+    //文章详情跳转
+    gotoSubject: function(id, type) {
+      if (type == 'p') {
+        this.$router.push('/p/'.concat(id))
+      } else if (type == 'v') {
+        this.$router.push('/v/'.concat(id))
+      }
+    },
+    //获取文章列表
+    getArticleList: function() {
+      this.$Progress.start()
+      var ap = new Object()
+      ap = subject.getArticleList({
+        start: 0,
+        amounts: 5,
+        sort: 'hot' //按热门排序
+      }),
+      this.items = ap.articlelist
+      this.$Progress.finish()
     }
   }
 }

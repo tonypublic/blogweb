@@ -34,7 +34,7 @@ export default {
         this.$router.push('/a')
         break
       case 3:
-        this.$router.push('/v')
+        this.$router.push('/c')
         break
       case 4:
         this.$router.push('/c')

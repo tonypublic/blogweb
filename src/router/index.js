@@ -37,10 +37,11 @@ export default new Router({
           }
         },
         {
-          path: 'v',
+          path: 'v/:id',
           components: {
             lBodyHead: VideoBox,
-            lBodyLeft: SubjectGroup
+            lBodyLeft: SubjectGroup,
+            siderBar: SiderBar
           }
         },
         {
@@ -53,6 +54,7 @@ export default new Router({
           path: 'c',
           components: {
             lBodyLeft: SubjectList,
+            siderBar: SiderBar
           }
         },
         {

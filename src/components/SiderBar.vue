@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SbSearch></SbSearch>
+    <SbSearch v-if="searchFlag"></SbSearch>
     <b-container class="sider-box" v-for="item in items" :key="item.id">
       <div class="box-panel">
         <div class="box-header">
@@ -32,6 +32,13 @@ export default {
   },
   created: function() {
     this.initItems()
+  },
+  computed: {
+    //根据路由来确定是否显示搜索框
+    searchFlag: function() {
+      var sf = this.$route.path.substr(0, 2)
+      return sf == '/' || sf == '/c' ? true : false
+    }
   },
   methods: {
     initItems: function() {
