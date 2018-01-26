@@ -1,0 +1,53 @@
+.subtitle {
+  font-size: 14px;
+  color: rgb(120, 120, 120);
+}
+
+//控件b-form-file式样调整
+.b-form-file.custom-file .custom-file-control {
+  border-radius: 0px;
+  border: 1px solid #ccc;
+}
+
+//控件list-group式样调整
+.list-group {
+  .list-group-item {
+    border: 0px;
+    font-size: 14px;
+    padding: 5px 10px;
+    text-align: center;
+  }
+}
+
+//控件ql-editor式样调整
+.editorbox-1 {
+  .ql-container.ql-snow {
+    min-height: 100px;
+    height: auto;
+  }
+}
+
+.editorbox-2 {
+  .ql-container.ql-snow {
+    min-height: 400px;
+    height: auto;
+  }
+}
+
+//分类标签
+.tag-1 {
+  font-size: 12px;
+  color: #fff;
+  background-color: #2fb3db;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  padding: 0px 6px;
+  cursor: pointer;
+}
+
+.block-style {
+  margin: 0 0 30px;
+  background-color: #fff;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+}

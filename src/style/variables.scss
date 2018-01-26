@@ -1,0 +1,23 @@
+$theme-key-color: #2fb3db;
+
+$color-group: (
+		theme-main: #2fb3db,
+		title-main: #000000,
+		title-sub: rgb(120, 120, 120)
+);
+
+//块式样
+@mixin block-style {
+    margin: 0 0 30px;
+    background-color: #fff;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+//标签式样
+@mixin tag-style {
+    color: #fff;
+    background-color: #2fb3db;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
