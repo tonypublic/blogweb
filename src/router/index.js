@@ -47,11 +47,12 @@ export default new Router({
         {
           path: 'm',
           components: {
-            lBodyLeft: MemberInfo
+            lBodyLeft: MemberInfo,
+            siderBar: SiderBar
           }
         },
         {
-          path: 'c',
+          path: 'c/:category',
           components: {
             lBodyLeft: SubjectList,
             siderBar: SiderBar
@@ -60,7 +61,8 @@ export default new Router({
         {
           path: 'a',
           components: {
-            lBodyLeft: SubjectAdd
+            lBodyLeft: SubjectAdd,
+            siderBar: SiderBar
           }
         },
         {

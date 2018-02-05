@@ -1,12 +1,10 @@
 <template>
 	<b-container class="SubjectList">
-		<div class="title">{{total}}个主题</div>
-		<div>
-			<hr class="mt-3" />
-			<b-media class="mb-3" v-for="item in items" :key="item.id">
-				<b-img slot="aside" :src="item.headicon" blank-color="#ccc" width="64" height="64" alt="placeholder" />
+		<div v-for="item in items" :key="item.id">
+			<b-media class="mb-3" >
+				<b-img slot="aside" rounded  :src="item.headicon" blank-color="#ccc" width="50" height="50" alt="placeholder" />
 				<div class="d-flex flex-wrap justify-content-between align-items-center">
-					<div>
+					<div @click="gotoSubject(item.id)">
 						<span>[{{item.category}}] {{item.title}}</span>
 					</div>
 					<div>
@@ -32,6 +30,7 @@
 					</div>
 				</div>
 			</b-media>
+      <hr/>
 		</div>
 		<b-pagination :total-rows="total" v-model="currentPage" :per-page="perPage" @input="changePage"></b-pagination>
 	</b-container>
@@ -53,6 +52,12 @@ export default {
   created: function() {
     this.getSubjectList()
   },
+  watch: {
+    // 如果 '路由' 发生改变，这个函数就会运行
+    $route: function () {
+      this.getSubjectList()
+    }
+  },
   methods: {
     //翻页事件
     changePage: function() {
@@ -60,7 +65,7 @@ export default {
     },
     //主题详情跳转
     gotoSubject: function(id) {
-
+      this.$router.push('/p/'.concat(id))
     },
     //获取主题列表
     getSubjectList: function() {
@@ -69,7 +74,8 @@ export default {
       sp = subject.getSubjectList({
         start: (this.currentPage - 1) * this.perPage,
         amounts: this.perPage,
-        sort: 'date'  //按日期排序
+        sort: 'date',  //按日期排序
+        category: this.$route.params.category //主题分类标志：m为留言，all为全部
       }),
       this.total = sp.total
       this.items = sp.subjectlist

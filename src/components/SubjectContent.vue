@@ -1,38 +1,38 @@
 <template>
   <article>
-    <h4 class="mb-3">这是第一个测试项目</h4>
+    <h4 class="mb-3">{{item.title}}</h4>
     <div>
       <b-media>
-        <b-img slot="aside" blank blank-color="#ccc" width="64" alt="placeholder" />
+        <b-img slot="aside" rounded  :src="author.headicon" blank-color="#ccc" width="50" height="50" alt="placeholder" />
         <div>
-          <h6 class="d-inline">Nested Media</h6>
-          <span class="text-warning">Lev.6</span>
+          <h6 class="d-inline">{{author.name}}</h6>
+          <span class="text-warning">Lev.{{author.grade}}</span>
         </div>
         <div class="d-flex flex-wrap">
-          <div class="subtitle font-italic pt-1 mr-4">Posted: 2018/1/4 12:12</div>
+          <div class="subtitle font-italic pt-1 mr-4">Posted: {{item.postdate}}</div>
           <div>
             <label class="tag-1 mr-3" v-if="item.tags.length>0" v-for="tag in item.tags" :key="tag.id">{{tag}}</label>
           </div>
         </div>
-        <div class="subtitle d-flex justify-content-end">
+        <div class="subtitle mb-2 d-flex justify-content-end">
           <div class="mr-3">
             <i class="iconfont icon-yanjing" />
-            <span>9,278</span>
+            <span>{{item.views}}</span>
           </div>
           <div class="mr-3">
             <i class="iconfont icon-41" />
-            <span>9,278</span>
+            <span>{{item.comments}}</span>
           </div>
           <div>
             <i class="iconfont icon-sharearrow" />
-            <span>9,278</span>
+            <span>{{item.share}}</span>
           </div>
         </div>
       </b-media>
     </div>
     <div>
-      <p class="article-info">这是一段简要的文章介绍，可以在list中显示。</p>
-      <div v-html="content"></div>
+      <p class="article-info text-justify" v-if="item.info!=null">{{item.info}}</p>
+      <div class="text-justify" v-html="item.content"></div>
     </div>
     <div v-if="eidtFlag">
       <quill-editor v-model="content" :options="editorOption">
@@ -41,7 +41,7 @@
         <b-button class="d-inline" type="submit" size="sm" variant="primary">提 交</b-button>
       </div>
     </div>
-    <div v-if="true" class="attachment">
+    <div v-if="false" class="attachment">
       <hr/>
       <h1>附件</h1>
       <div>
@@ -57,20 +57,23 @@
     </div>
     <div class="d-flex justify-content-end">
       <span class="mr-2">编辑</span>
-      <span class="mr-2">回复</span>
+      <span class="mr-2">评论</span>
       <span>举报</span>
     </div>
   </article>
 </template>
 
 <script>
+import subject from '../api/subject'
+import author from '../api/user'
+
 export default {
   name: 'SubjectContent',
   data() {
     return {
+      item: {},
+      author: {},
       eidtFlag: false,
-      content:
-        '<p>那么如何访问这个 meta 字段呢？首先，我们称呼 routes 配置中的每个路由对象为 路由记录。路由记录可以是嵌套的，因此，当一个路由匹配成功后，他可能匹配多个路由记录 例如，根据上面的路由配置，/foo/bar 这个 URL 将会匹配父路由记录以及子路由记录。 一个路由匹配到的所有路由记录会暴露为 $route 对象（还有在导航守卫中的路有对象）的 $route.matched 数组。</p><p><img class="img-fluid" src="http://demo.shapedtheme.com/kotha/wp-content/uploads/2015/07/photo-1428865798880-73444f4cbefc-1140x600.jpeg" alt="Responsive image" /></p><p>因此，我们需要遍历 $route.matched 来检查路由记录中的 meta 字段。</p>',
       editorOption: {
         // theme: 'bubble',
 
@@ -89,10 +92,16 @@ export default {
             userOnly: false
           }
         }
-      },
-      item: {
-        tags: ['家装', '木作']
       }
+    }
+  },
+  created: function() {
+    this.getSubjectContent()
+  },
+  methods: {
+    getSubjectContent() {
+      this.item = subject.getSubjectContent(this.$route.params.id)
+      this.author = author.getUserInfo(this.item.authorid)
     }
   }
 }

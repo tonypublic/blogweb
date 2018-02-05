@@ -5,7 +5,7 @@ const userInfo = {
   uid: 10001,
   name: '隔壁老王',
   email: 'aaa@a.com',
-  icon: 'http://n.sinaimg.cn/translate/20170317/yOGS-fycnyhk8443863.jpg',
+  headicon: 'http://img.woyaogexing.com/touxiang/katong/2014/0509/f947397e25c42e2c!200x200.jpg',
   grade: 6,
   points: 2,
   subject: 123,
@@ -14,8 +14,9 @@ const userInfo = {
 }
 
 export default {
-  getUserInfo(cb) {
-    setTimeout(() => cb(userInfo), 1000)
+  getUserInfo(uid) {
+    userInfo.uid = uid
+    return userInfo
   }
 
   // 	buyProducts(products, cb, errorCb) {

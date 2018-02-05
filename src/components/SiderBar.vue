@@ -1,6 +1,8 @@
 <template>
   <div>
-    <SbSearch v-if="searchFlag"></SbSearch>
+    <div class="block-style">
+      <SbSearch></SbSearch>
+    </div>
     <b-container class="sider-box" v-for="item in items" :key="item.id">
       <div class="box-panel">
         <div class="box-header">
@@ -8,7 +10,7 @@
           <div class="box-title">{{item.title}}</div>
         </div>
         <div class="box-content">
-          <component v-bind:is="item.module"></component>
+          <component :is="item.module"></component>
         </div>
       </div>
     </b-container>
@@ -38,16 +40,23 @@ export default {
     searchFlag: function() {
       var sf = this.$route.path.substr(0, 2)
       return sf == '/' || sf == '/c' ? true : false
+    },
+    //根据路由来确定是否留言按钮
+    buttonFlag: function() {
+      var sf = this.$route.path.substr(0, 2)
+      return sf == '/c' ? true : false
     }
   },
   methods: {
     initItems: function() {
-      if (this.loginFlag) {
-        this.items = [{ title: '会员', module: SbMember }]
-      } else {
-        this.items = [{ title: '关于', module: SbAbout }]
-      }
+      // if (this.loginFlag) {
+      //   this.items = [{ title: '会员', module: SbMember }]
+      // } else {
+      //   this.items = [{ title: '关于', module: SbAbout }]
+      // }
       this.items.push(
+        // { title: '操作', module: SbSearch },
+        { title: '关于', module: SbAbout },
         { title: '关注', module: SbSocial },
         { title: '热门内容', module: SbHotList }
       )

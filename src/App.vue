@@ -3,7 +3,6 @@
     <Header></Header>
     <div class="body">
       <router-view name="body"></router-view>
-      <!-- <router-view name="layoutBody"></router-view> -->
     </div>
     <BackTop></BackTop>
     <Footer></Footer>

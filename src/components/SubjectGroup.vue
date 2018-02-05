@@ -22,7 +22,6 @@ export default {
   name: 'SubjectGroup',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   },
   components: { SubjectContent, CommentList, CommentAdd }

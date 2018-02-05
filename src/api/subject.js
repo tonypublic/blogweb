@@ -574,6 +574,25 @@ const subjectListPackage = {
   ]
 }
 
+const subjectContent = {
+  sid: 123,
+  type: 'p',
+  vedio: '',
+  headimg:
+    'http://demo.shapedtheme.com/kotha/wp-content/uploads/2015/07/photo-1428865798880-73444f4cbefc-1140x600.jpeg',
+  duration: '15:00',
+  title: '这是第一个测试项目这是第一个测试项目这是第一个测',
+  istop: true,
+  postdate: '2018/1/4 12:12',
+  info: '目前在响应式设计中最流行的技术，就是对于不同浏览器和设备的动态布局设计。',
+  tags: ['家装', '木作'],
+  views: '10万',
+  comments: '1000',
+  share: '8765',
+  authorid: 222,
+  content: '<p>那么如何访问这个 meta 字段呢？首先，我们称呼 routes 配置中的每个路由对象为 路由记录。路由记录可以是嵌套的，因此，当一个路由匹配成功后，他可能匹配多个路由记录 例如，根据上面的路由配置，/foo/bar 这个 URL 将会匹配父路由记录以及子路由记录。 一个路由匹配到的所有路由记录会暴露为 $route 对象（还有在导航守卫中的路有对象）的 $route.matched 数组。</p><p><img class="img-fluid" src="http://demo.shapedtheme.com/kotha/wp-content/uploads/2015/07/photo-1428865798880-73444f4cbefc-1140x600.jpeg" alt="Responsive image" /></p><p>因此，我们需要遍历 $route.matched 来检查路由记录中的 meta 字段。</p>'
+}
+
 export default {
   //获取博客文章列表
   getArticleList(selector) {
@@ -585,11 +604,16 @@ export default {
   },
   //获取社区主题列表
   getSubjectList(selector) {
-    // console.log(subjectListPackage)
+    // console.log(selector)
     var sp = new Object()
     sp.total = subjectListPackage.total
     sp.subjectlist = subjectListPackage.subjectlist.slice(selector.start, selector.start + selector.amounts)
     return sp
+  },
+  //获取主题内容
+  getSubjectContent(sid) {
+    subjectContent.sid = sid
+    return subjectContent
   }
 
   // 	buyProducts(products, cb, errorCb) {

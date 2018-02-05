@@ -4,7 +4,12 @@
 			<router-view name="lBodyHead"></router-view>
 		</div>
 		<b-container>
-			<BreadNavBar></BreadNavBar>
+			<b-row>
+				<b-col class="d-flex justify-content-between" lg="8" md="12">
+					<BreadNavBar></BreadNavBar>
+					<div>25个主题</div>
+				</b-col>
+			</b-row>
 		</b-container>
 		<b-container>
 			<b-row>
